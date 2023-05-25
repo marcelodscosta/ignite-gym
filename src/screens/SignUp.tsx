@@ -6,7 +6,17 @@ import Logo from "@assets/logo.svg";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
+import { useNavigation } from "@react-navigation/native";
+
+import { AuthNavigatorRoutesProps } from "../Routes/auth.routes";
+
 export const SignUp = () => {
+  const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
+
+  const handleGoBackLogin = () => {
+    navigate("signIn");
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -49,7 +59,12 @@ export const SignUp = () => {
           <Button title="Criar e acessar" />
         </Center>
 
-        <Button marginTop={8} title="Voltar para o login" variant="outline" />
+        <Button
+          marginTop={8}
+          title="Voltar para o login"
+          variant="outline"
+          onPress={handleGoBackLogin}
+        />
       </VStack>
     </ScrollView>
   );
