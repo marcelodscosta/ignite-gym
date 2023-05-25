@@ -8,7 +8,7 @@ import { Button } from "@components/Button";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { AuthNavigatorRoutesProps } from "../Routes/auth.routes";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 
 export const SignUp = () => {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
