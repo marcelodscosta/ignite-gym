@@ -1,10 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthRoutes } from "./auth.routes";
+import { Box } from "native-base";
 
 export const Routes = () => {
   return (
-    <NavigationContainer>
-      <AuthRoutes />
-    </NavigationContainer>
+    <Box flex={1} bg="gray.700">
+      <NavigationContainer>
+        <AuthRoutes />
+      </NavigationContainer>
+    </Box>
   );
 };
