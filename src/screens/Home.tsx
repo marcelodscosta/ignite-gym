@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { HStack, VStack, FlatList } from "native-base";
+import { FlatList, HStack, Heading, Text, VStack } from "native-base";
 
-import { HomeHeader } from "@components/HomeHeader";
 import { Group } from "@components/Group";
+import { HomeHeader } from "@components/HomeHeader";
 
 export const Home = () => {
   const [groupSelected, setGroupSelected] = useState("costa");
@@ -29,6 +29,10 @@ export const Home = () => {
           my={10}
           maxH={10}
         />
+      </HStack>
+      <HStack mx={10} mb={5}>
+        <Heading fontSize="md" color="gray.200" flex={1}>Exercícios</Heading>
+        <Text fontSize="sm" color="gray.200">4</Text>
       </HStack>
     </VStack>
   );
