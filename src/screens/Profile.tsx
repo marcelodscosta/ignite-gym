@@ -36,7 +36,7 @@ export const Profile = () => {
           </TouchableOpacity>
           <VStack w="88%" mt={8}>
             <Input placeholder="Nome" bg="gray.600" />
-            <Input keyboardType="email-address" placeholder="E-mail" bg="gray.600" />
+            <Input keyboardType="email-address" placeholder="E-mail" bg="gray.600" isDisabled />
           </VStack>
 
           <VStack w="88%" mt={1}>
