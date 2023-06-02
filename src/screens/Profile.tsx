@@ -2,9 +2,11 @@ import { useState } from "react";
 
 import * as ImagePicker from "expo-image-picker";
 
+import * as FileSystem from 'expo-file-system';
+
 import { TouchableOpacity } from "react-native";
 
-import { Heading, ScrollView, Skeleton, VStack } from "native-base";
+import { Heading, ScrollView, Skeleton, VStack, useToast } from "native-base";
 
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
@@ -13,8 +15,10 @@ import { UserPhoto } from "@components/UserPhoto";
 
 export const Profile = () => {
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
   const [photo, setPhoto] = useState('https://www.github.com/marcelodscosta.png');
+
+  const toast = useToast();
 
   async function handleSelectImage() {
     setIsLoaded(false);
@@ -28,6 +32,16 @@ export const Profile = () => {
       });
       if (photoSelected.canceled) {
         return;
+      }
+      if (photoSelected.assets[0].uri) {
+        const photoInfo = await FileSystem.getInfoAsync(photoSelected.assets[0].uri);
+        if (photoInfo.exists && (photoInfo.size / 1024 / 1024 > 5)) {
+          return toast.show({
+            title: "A imagem deve ter no máximo 5MB",
+            placement: "top",
+            bg: "red.500",
+          });
+        }
       }
       setPhoto(photoSelected.assets[0].uri);
     } catch (error) {
