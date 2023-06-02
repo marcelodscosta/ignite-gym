@@ -13,6 +13,8 @@ import { UserPhoto } from "@components/UserPhoto";
 
 export const Profile = () => {
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [photo, setPhoto] = useState('https://www.github.com/marcelodscosta.png');
   async function handleSelectImage() {
     const photoSelected = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -20,9 +22,13 @@ export const Profile = () => {
       aspect: [4, 4],
       allowsEditing: true,
     });
+    if (photoSelected.canceled) {
+      return;
+    }
+    setPhoto(photoSelected.assets[0].uri);
   };
 
-  const [isLoaded, setIsLoaded] = useState(false);
+
   {
     setTimeout(() => {
       setIsLoaded(true)
@@ -41,7 +47,7 @@ export const Profile = () => {
             startColor="gray.400"
             endColor="gray.300"
           />
-          {isLoaded && < UserPhoto size={148} source={{ uri: "https://www.github.com/marcelodscosta.png" }} alt="Foto de Perfil" />}
+          {isLoaded && < UserPhoto size={148} source={{ uri: photo }} alt="Foto de Perfil" />}
           <TouchableOpacity onPress={handleSelectImage}>
             <Heading fontSize="xl" color="green.500" mt={4}>Alterar Foto</Heading>
           </TouchableOpacity>
