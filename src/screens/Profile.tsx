@@ -14,7 +14,7 @@ import { UserPhoto } from "@components/UserPhoto";
 export const Profile = () => {
 
   async function handleSelectImage() {
-    await ImagePicker.launchImageLibraryAsync({
+    const photoSelected = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
       aspect: [4, 4],
