@@ -15,25 +15,30 @@ export const Profile = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [photo, setPhoto] = useState('https://www.github.com/marcelodscosta.png');
+
   async function handleSelectImage() {
-    const photoSelected = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      aspect: [4, 4],
-      allowsEditing: true,
-    });
-    if (photoSelected.canceled) {
-      return;
+    setIsLoaded(false);
+
+    try {
+      const photoSelected = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        aspect: [4, 4],
+        allowsEditing: true,
+      });
+      if (photoSelected.canceled) {
+        return;
+      }
+      setPhoto(photoSelected.assets[0].uri);
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+      setIsLoaded(true);
     }
-    setPhoto(photoSelected.assets[0].uri);
-  };
 
-
-  {
-    setTimeout(() => {
-      setIsLoaded(true)
-    }, 5000)
   }
+
   return (
     <VStack flex={1} bg="gray.700">
       <ScreenHeader title="Perfil" />
