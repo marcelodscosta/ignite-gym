@@ -14,6 +14,10 @@ import { useNavigation } from "@react-navigation/native";
 
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 
+import { api } from "@services/api";
+import axios from 'axios';
+import { Alert } from "react-native";
+
 type FormDataProps = {
   name: string;
   email: string;
@@ -36,8 +40,16 @@ export const SignUp = () => {
     resolver: yupResolver(SignUpSchema)
   });
 
-  const handleSignUp = (data: FormDataProps) => {
-    console.log(data);
+  const handleSignUp = async ({ name, email, password }: FormDataProps) => {
+    try {
+      const response = await api.post('/users', { name, email, password });
+      console.log(response.data);
+      Alert.alert('Usuário cadastrado com sucesso');
+    } catch (error) {
+      if (axios.isAxiosError(error))
+        Alert.alert('Erro ao cadastrar', error.response?.data.message);
+    }
+
   };
 
   const handleGoBackLogin = () => {
